@@ -1,0 +1,1 @@
+cd FastAPI && .\venv\Scripts\activate && cd src && uvicorn main:app --reload

@@ -1,0 +1,33 @@
+{
+  "name": "client",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@uploadcare/blocks": "0.25.0",
+    "@uploadcare/nextjs-loader": "github:uploadcare/nextjs-loader",
+    "@uploadcare/react-widget": "^2.4.5",
+    "@uploadcare/upload-client": "^6.6.1",
+    "axios": "^1.5.1",
+    "bootstrap": "^5.3.2",
+    "cropperjs": "^1.6.1",
+    "framer-motion": "^10.12.7",
+    "next": "13.5.4",
+    "react": "^18",
+    "react-beautiful-dnd": "^13.1.1",
+    "react-bootstrap": "^2.9.0",
+    "react-cropper": "^2.3.3",
+    "react-dom": "^18",
+    "uploadcare-widget-tab-effects": "^1.7.2"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10",
+    "postcss": "^8",
+    "tailwindcss": "^3"
+  }
+}
