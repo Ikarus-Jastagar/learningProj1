@@ -1,8 +1,9 @@
 "use client";
 import axios from "axios";
-// import { Reorder, useDragControls } from "framer-motion"
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import Aos from "aos";
 
 async function getData() {
   const res = await axios.get(
@@ -14,17 +15,21 @@ async function getData() {
   return res.data;
 }
 
-function EachBlogComp({title,html,feature_image}){
+function EachBlogComp({title,html,feature_image,custom_excerpt}){
   const [showModal, setShowModal] = useState(false);
-  const style_blogWrapper = "flex mx-10 my-5";
-  const style_1 = "";
-  const style_2 = "";
-  const style_3 = "";
   return (
     <>
-        <div onClick={() => setShowModal(true)} className={style_blogWrapper}>
-            <img width={400} src={feature_image}/>
-            <h4 className="text-3xl p-4 m-3">{title}</h4>
+        <div 
+          className="transition-all rounded-md overflow-hidden flex w-[80%] mx-10 my-5 bg-slate-400 bg-opacity-75 hover:shadow-xl"
+          data-aos="flip-up"
+          onClick={() => setShowModal(true)} >
+            <Image alt="featured_image" className="rounded-md" width={400} height={400} src={feature_image}/>
+            <div className=" p-4 m-3">
+              <h4 className="text-2xl font-bold">{title}</h4>
+              <p>
+                {custom_excerpt}
+              </p>
+            </div>  
         </div>
       {showModal ? (
         <>
@@ -35,19 +40,15 @@ function EachBlogComp({title,html,feature_image}){
               {/*content*/}
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 {/*header*/}
-                <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+                <div className="flex justify-between items-center p-5 border-b border-solid border-slate-200 rounded-t">
                   <h3 className="text-3xl font-semibold">
                     {title}
                   </h3>
                   <div>
                     <button
-                        className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                        className="p-2 flex items-center ml-auto bg-transparent border-0 text-red-500 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
                         onClick={() => setShowModal(false)}
-                        >
-                        <span className="bg-red-900 text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-                        X
-                        </span>
-                    </button>
+                        >X</button>
                     </div>
                 </div>
                 {/*body*/}
@@ -65,7 +66,7 @@ function EachBlogComp({title,html,feature_image}){
               </div>
             </div>
           </div>
-          <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+          <div onClick={() => setShowModal(false)} className="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </>
       ) : null}
     </>
@@ -74,8 +75,6 @@ function EachBlogComp({title,html,feature_image}){
 
 export default function BlogsComp() {
   const [blogs, setBlogs] = useState([]);
-
-  const style_wrapper = "flex flex-col";
 
     function handleOnDropEnd(result){
         const items = Array.from(blogs);
@@ -90,47 +89,50 @@ export default function BlogsComp() {
       setBlogs(e.message.posts);
       console.clear()
     });
+    Aos.init()
   }, []);
   return (
     <>
       <section id="blogs">
-        <div className={style_wrapper}>
+        <div className="flex flex-col">
           <div>
-            <h2 className="text-6xl text-center p-10 underline underline-offset-4">
+            <h2 className="text-5xl text-center font-bold p-10">
               Lets have a look at our Blogs:
             </h2>
           </div>
-          <DragDropContext onDragEnd={handleOnDropEnd}>
-            <Droppable droppableId="BLOGS">
-              {(provided) => (
-                <ul
-                  {...provided.droppableProps}
-                  ref={provided.innerRef}
-                >
-                  {blogs.map((blog, index) => (
-                    <Draggable
-                      draggableId={blog.id}
-                      key={blog.id}
-                      id={blog.id}
-                      index={index}
-                    >
-                      {(innerProvided) => (
-                        <li
-                          className="flex border-2"
-                          {...innerProvided.draggableProps}
-                          {...innerProvided.dragHandleProps}
-                          ref={innerProvided.innerRef}
-                        >
-                          <EachBlogComp {...blog} />
-                        </li>
-                      )}
-                    </Draggable>
-                  ))}
-                  {provided.placeholder}
-                </ul>
-              )}
-            </Droppable>
-          </DragDropContext>
+          <div className="p-4">
+            <DragDropContext onDragEnd={handleOnDropEnd}>
+              <Droppable droppableId="BLOGS">
+                {(provided) => (
+                  <ul
+                    {...provided.droppableProps}
+                    ref={provided.innerRef}
+                  >
+                    {blogs.map((blog, index) => (
+                      <Draggable
+                        draggableId={blog.id}
+                        key={blog.id}
+                        id={blog.id}
+                        index={index}
+                      >
+                        {(innerProvided) => (
+                          <li
+                            className="flex justify-center"
+                            {...innerProvided.draggableProps}
+                            {...innerProvided.dragHandleProps}
+                            ref={innerProvided.innerRef}
+                          >
+                            <EachBlogComp {...blog} />
+                          </li>
+                        )}
+                      </Draggable>
+                    ))}
+                    {provided.placeholder}
+                  </ul>
+                )}
+              </Droppable>
+            </DragDropContext>
+          </div>
         </div>
       </section>
     </>

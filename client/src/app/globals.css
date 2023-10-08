@@ -29,10 +29,21 @@ body{
   }
   section {
     min-height: 93dvh;
+    display: flex;
 }
 .my-config {
   --darkmode: 0;
   --h-accent: 223;
   --s-accent: 100%;
   --l-accent: 61%;
+}
+
+.galleryBG{
+  /* background-color: #8BC6EC;
+  background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%); */
+  background: rgb(83,81,117);
+  background: linear-gradient(135deg, rgba(83,81,117,1) 0%, rgba(149,159,184,1) 29%, rgba(185,194,209,1) 100%);
+}
+.heroBG{
+  background-image: radial-gradient( circle farthest-corner at 69.9% 53%,  rgba(255,255,255,1) 0%, rgba(200,208,222,1) 92.2% );
 }
