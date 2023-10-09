@@ -33,13 +33,14 @@ function EachBlogComp({title,html,feature_image,custom_excerpt}){
   return (
     <>
         <div 
-          className="transition-all rounded-md overflow-hidden flex w-[80%] mx-10 my-5 bg-slate-400 bg-opacity-75 hover:shadow-xl"
+          className="transition-all rounded-md overflow-hidden flex-col md:flex-row flex w-[80%] md:mx-10 my-5 bg-slate-400 bg-opacity-75 hover:shadow-xl"
           data-aos="flip-up" data-aos-once='true'
           onClick={() => setShowModal(true)} >
+            {/* <Image alt="featured_image" className="rounded-md" width={400} height={400} src={feature_image}/> */}
             <Image alt="featured_image" className="rounded-md" width={400} height={400} src={feature_image}/>
             <div className=" p-4 m-3">
               <h4 className="text-2xl font-bold">{title}</h4>
-              <p>
+              <p className="hidden md:block">
                 {custom_excerpt}
               </p>
             </div>  
@@ -79,7 +80,7 @@ function EachBlogComp({title,html,feature_image,custom_excerpt}){
               </div>
             </div>
           </div>
-          <div onClick={() => setShowModal(false)} className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+          <div onClick={() => setShowModal(false)} className="opacity-50 fixed inset-0 z-40 bg-black"></div>
         </>
       ) : null}
     </>
@@ -147,6 +148,7 @@ export default function BlogsComp() {
               <Droppable droppableId="BLOGS">
                 {(provided) => (
                   <ul
+                    className="p-0 m-0"
                     {...provided.droppableProps}
                     ref={provided.innerRef}
                   >
@@ -159,7 +161,7 @@ export default function BlogsComp() {
                       >
                         {(innerProvided) => (
                           <li
-                            className="flex justify-center"
+                            className="flex justify-center w-full"
                             {...innerProvided.draggableProps}
                             {...innerProvided.dragHandleProps}
                             ref={innerProvided.innerRef}

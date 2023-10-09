@@ -1,4 +1,6 @@
+"use client"
 import Image from "next/image"
+import { useEffect, useState } from "react"
 
 function EachDisplayImage({src,delay}){
   return(
@@ -20,11 +22,16 @@ async function getData(numberOfImages){
 }
 
 
-export default async function Gallery(){
+export default function Gallery(){
 
     const loadRangeMin=0
-
-    const {data} = await getData(loadRangeMin)
+    const [data,setData] = useState([])
+    useEffect(()=>{
+      getData(loadRangeMin).then((e)=>{
+        console.log(e)
+        setData(e.data)
+      })
+    },[])
     console.log(data)
     return(
         <>

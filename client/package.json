@@ -24,6 +24,7 @@
     "react-bootstrap": "^2.9.0",
     "react-cropper": "^2.3.3",
     "react-dom": "^18",
+    "react-toastify": "^9.1.3",
     "uploadcare-widget-tab-effects": "^1.7.2"
   },
   "devDependencies": {
