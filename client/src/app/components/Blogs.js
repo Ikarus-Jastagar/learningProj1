@@ -2,17 +2,30 @@
 import axios from "axios";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
 import Aos from "aos";
 
+
+
+const expectedBlogsData = [
+  {id:"RandomID1ForThisOne"},
+  {id:"RandomID1ForThisTwo"},
+  {id:"RandomID1ForThisThree"},
+  {id:"RandomID1ForThisFour"}
+]
+
 async function getData() {
-  const res = await axios.get(
-    "https://beta.ikarus3d.com/api/v1/blog?tag=hash-homepage,blog-tag"
-  );
-  if (!res) {
-    throw new Error("Failed to fetch data");
+  try{
+    const res = await axios.get(
+      "https://demo.ghost.io/ghost/api/content/posts/?key=22444f78447824223cefc48062&include=tags,authors"
+    );
+    if (!res) {
+      throw new Error("Failed to fetch data");
+    }
+    return res.data;
+  }catch(error){
+    console.log("Unable to fetch Blog :(\n due to",error.message)
   }
-  return res.data;
 }
 
 function EachBlogComp({title,html,feature_image,custom_excerpt}){
@@ -21,7 +34,7 @@ function EachBlogComp({title,html,feature_image,custom_excerpt}){
     <>
         <div 
           className="transition-all rounded-md overflow-hidden flex w-[80%] mx-10 my-5 bg-slate-400 bg-opacity-75 hover:shadow-xl"
-          data-aos="flip-up"
+          data-aos="flip-up" data-aos-once='true'
           onClick={() => setShowModal(true)} >
             <Image alt="featured_image" className="rounded-md" width={400} height={400} src={feature_image}/>
             <div className=" p-4 m-3">
@@ -72,11 +85,42 @@ function EachBlogComp({title,html,feature_image,custom_excerpt}){
     </>
   );
 }
+function EachBlogCompSkeleton(){
+  return (
+    <>
+        <div 
+          className="transition-all rounded-md overflow-hidden flex w-[80%] mx-10 my-5 bg-slate-400 bg-opacity-75 hover:shadow-xl"
+          data-aos="flip-up" data-aos-once='true'>
+            <div className="w-[200px] h-[200px] rounded-md skeletonAnimation"></div>
+            <div className="flex-1 p-4 m-3">
+              <div className="h-5 w-full rounded-md skeletonAnimation"></div>
+
+              <div className="mt-2 w-full">
+                <div className="w-full m-3 h-4 rounded-md skeletonAnimation"></div>
+                <div className="w-full m-3 h-4 rounded-md skeletonAnimation"></div>
+                <div className="w-full m-3 h-4 rounded-md skeletonAnimation"></div>
+                <div className="w-full m-3 h-4 rounded-md skeletonAnimation"></div>
+              </div>
+            </div>  
+            {/* <div className="h-4 w-full  skeletonAnimation"></div> */}
+        </div>
+    </>
+  );
+}
 
 export default function BlogsComp() {
   const [blogs, setBlogs] = useState([]);
+  const [SKblogs, setSKBlogs] = useState(expectedBlogsData);
 
     function handleOnDropEnd(result){
+        if(!blogs.length){
+          const items = Array.from(SKblogs);
+          const [reorderedItem] = items.splice(result.source.index, 1);
+          items.splice(result.destination.index, 0, reorderedItem);
+  
+          setSKBlogs(items);
+          return
+        }
         const items = Array.from(blogs);
         const [reorderedItem] = items.splice(result.source.index, 1);
         items.splice(result.destination.index, 0, reorderedItem);
@@ -85,15 +129,13 @@ export default function BlogsComp() {
     }
   useEffect(() => {
     getData().then((e) => {
-      console.log("BLOGS IN Function", e);
-      setBlogs(e.message.posts);
-      console.clear()
-    });
+      setBlogs(e.posts.slice(0,4));
+    }).catch((error)=>{console.error("Unable to fetch Blog :(\n due to",error.message)})
     Aos.init()
   }, []);
   return (
     <>
-      <section id="blogs">
+      <section id="blogs" className="justify-center">
         <div className="flex flex-col">
           <div>
             <h2 className="text-5xl text-center font-bold p-10">
@@ -108,7 +150,7 @@ export default function BlogsComp() {
                     {...provided.droppableProps}
                     ref={provided.innerRef}
                   >
-                    {blogs.map((blog, index) => (
+                    {blogs.length? blogs.map((blog, index) => (
                       <Draggable
                         draggableId={blog.id}
                         key={blog.id}
@@ -126,7 +168,25 @@ export default function BlogsComp() {
                           </li>
                         )}
                       </Draggable>
-                    ))}
+                    ))
+                    :SKblogs.map((blog,index) => (
+                        <Draggable
+                            draggableId={blog.id}
+                            key={blog.id}
+                            index={index}
+                          >
+                            {(innerProvided) => (
+                              <li
+                                className="flex justify-center"
+                                {...innerProvided.draggableProps}
+                                {...innerProvided.dragHandleProps}
+                                ref={innerProvided.innerRef}
+                              >
+                                <EachBlogCompSkeleton />
+                              </li>
+                            )}
+                          </Draggable>
+                      ))}
                     {provided.placeholder}
                   </ul>
                 )}

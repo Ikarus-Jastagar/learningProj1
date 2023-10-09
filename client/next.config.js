@@ -2,6 +2,7 @@
 const nextConfig = {
     reactStrictMode:false,
     images: {
+        unoptimized: true,
         remotePatterns: [
           {
             protocol: 'https',
@@ -11,5 +12,6 @@ const nextConfig = {
         ],
         domains:["s3-ap-south-1.amazonaws.com"]
       },
+    output:"export"
 }
 module.exports = nextConfig

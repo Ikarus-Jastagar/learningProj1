@@ -15,7 +15,7 @@ function EachDisplayImage({src,delay}){
 async function getData(numberOfImages){
   const link = "http://127.0.0.1:8000/api/all_users_images/"+numberOfImages
   console.log(link)
-  const images = await fetch(link,{ next: { revalidate: 1000 } })
+  const images = await fetch(link,{ next: { revalidate: 30 } })
   return await images.json()
 }
 
@@ -29,7 +29,7 @@ export default async function Gallery(){
     return(
         <>
           <div id="gallery" className='flex flex-wrap shadow-lg'>
-            {data.map((e,i) =>(
+            {data && data.map((e,i) =>(
               <EachDisplayImage key={Date.now()+i} delay={i*100/2} src={e} />
             ))}
           </div>

@@ -1,0 +1,20 @@
+version: '3.7'
+
+services:
+  app:
+    build: ./client
+    container_name: staticServe
+    ports:
+      - "3000:80"
+    # command: sh -c "nginx"
+    volumes:
+      - ./templates:/etc/nginx/templates
+    restart: unless-stopped
+
+  fastapiserver:
+    build: ./FastAPI/src
+    container_name: fastAPIServer
+    ports:
+      - "8000:8000"
+    command: uvicorn main:app --host 0.0.0.0
+    restart: unless-stopped

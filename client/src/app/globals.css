@@ -47,3 +47,25 @@ body{
 .heroBG{
   background-image: radial-gradient( circle farthest-corner at 69.9% 53%,  rgba(255,255,255,1) 0%, rgba(200,208,222,1) 92.2% );
 }
+.skeletonAnimation{
+  background: linear-gradient(135deg, rgba(83,81,117,1) 0%, rgba(149,159,184,1) 29%, rgba(185,194,209,1) 100%);  
+  background-size: 400% 400%;
+
+  animation-name: skeletonAnimation;
+  animation-direction: normal;
+  animation-fill-mode: forwards;
+  animation-timing-function: linear;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+@keyframes skeletonAnimation {
+  0%{
+    background-position: 0% 50%;
+  }
+  50%{
+    background-position: 100% 50%;
+  }
+  100%{
+    background-position: 0% 50%;
+  }
+}

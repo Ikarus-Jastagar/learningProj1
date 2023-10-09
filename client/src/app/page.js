@@ -106,7 +106,7 @@ function AboutUs(){
           {/* Picture Narrate: Illuminating Images with Stories
 
           At the intersection of art and technology, where every pixel holds a tale and every frame narrates an emotion, lies Picture Narrate. We believe that every snapshot, whether a fleeting moment or a cherished memory, conceals a deeper narrative. Our mission? To bring those narratives to light. */}
-          {content.map((e,i)=>{
+          {content && content.map((e,i)=>{
             return <AboutUsBlocks {...e} key={Date.now()+i} />
           })}
       </div>
