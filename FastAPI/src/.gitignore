@@ -1,2 +1,2 @@
-./config/secrets.yml
-./pycache/
+config/secrets.yml
+pycache/
