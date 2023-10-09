@@ -48,7 +48,7 @@ function UserForm({startTrial,setStartTrial}) {
       toast.error("This user has already uploaded once")
       return
     }
-    toast.success("Your Image has been submitted")
+    toast("Your Image has been submitted")
     setEmail("")
     setPhone("")
     setUsername("")

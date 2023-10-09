@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from config.database import UserImageMetaDB
@@ -17,21 +17,20 @@ class ImageUserAndMeta(BaseModel):
     name:str
     phoneNumber:int
 
-@app.get("/api/all_users_images/{number}")
+@app.get("/api/images/{number}")
 async def getAllImages(number:int):
 
     allUsers = UserImageMetaDB.find({})
     allimages = [a for i in allUsers for a in i['images']]
-    print("-------------------->",allimages)
     if(number>len(allimages)):
         number=len(allimages)
-    return {
-        "error":False,
-        "message":"Images sent",
-        "data":allimages[number:number+9]
-    }
+    return HTTPException(
+        200,
+        {"message":"Images sent"},
+        {"data":allimages[number:number+9]
+    })
 
-@app.post("/api/image_upload")
+@app.post("/api/user")
 async def saveIncommingImage(data: ImageUserAndMeta):
     checkForUser = UserImageMetaDB.find_one({"email":data.email})
 
@@ -40,8 +39,7 @@ async def saveIncommingImage(data: ImageUserAndMeta):
             "error":True,
             "message":"This Email user has already used their trial"
         }
-    newUserRef = UserImageMetaDB.insert_one(data.dict())
-    print(newUserRef)
+    UserImageMetaDB.insert_one(data.dict())
     return {
         "error": False,
         "further_process_allowance":True,

@@ -3,9 +3,9 @@ import landingImage from "@/app/assets/HeroVector.svg";
 import Image from "next/image";
 import BlogsComp from "./components/Blogs";
 import Trial from "./components/Trial";
-import Gallery from "./Gallery";
+import Gallery from "./components/Gallery";
 import Script from "next/script";
-import NavBar from "./components/NavComp";
+import NavBar from "./components/NavBar/NavComp";
 
 
 function Banner() {

@@ -17,7 +17,5 @@ import yaml
 with open(os.path.join(cwd,"config",f"secrets.yml"),'r') as file:
     config = yaml.safe_load(file)
 
-print(config)
-
 mongo_url = config['mongodb']["mongo_url"]
 jwt_secrets = config['jwt']["jwt_secret"]
