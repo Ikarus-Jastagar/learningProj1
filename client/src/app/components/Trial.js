@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import { uploadTrialData } from "../server/server"
+import { getImages, uploadTrialData } from "../server/server"
 import * as LR from "@uploadcare/blocks";
 // or// import effects from 'uploadcare-widget-tab-effects/react-en'
 import { ToastContainer, toast } from 'react-toastify';
@@ -23,7 +23,7 @@ function InputField({id,val,setter,placeholder}){
   )
 }
 
-function UserForm({startTrial,setStartTrial}) {
+function UserForm({startTrial,setStartTrial,setImages}) {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -32,8 +32,8 @@ function UserForm({startTrial,setStartTrial}) {
 
   async function handleFormSubmit(e) {
     e.preventDefault();
-    if(!urls.length){
-      toast.warn("Need to post atleast one Image")
+    if(urls.length!=2){
+      toast.warn("Need to post exactly 2 images")
       return
     }
     const dataToSend = {
@@ -48,7 +48,11 @@ function UserForm({startTrial,setStartTrial}) {
       toast.error("This user has already uploaded once")
       return
     }
-    toast("Your Image has been submitted")
+    const newData = await getImages(0)
+    setImages(newData.detail.images)
+    console.log("toast here")
+    toast("Your Image has been submitted",{type:"success"})
+    console.log("toast ends")
     setEmail("")
     setPhone("")
     setUsername("")
@@ -84,11 +88,27 @@ function UserForm({startTrial,setStartTrial}) {
   );
 }
 
-export function Uploader({setUrls}){
+export function Uploader({urls,setUrls}){
 
+  const outputRef=useRef(null)
+  console.log("LENGTH:",urls.length)
     useEffect(()=>{
       const dataOutput = document.querySelector('lr-data-output');
+      
+      console.log(outputRef.current.innerHTML)
+
+      window.addEventListener('LR_DATA_OUTPUT',(e)=>{
+        console.log("LR_DATA_OUTPUT",e)
+      })
+      window.addEventListener('LR_REMOVE',()=>{
+        console.log("LR_REMOVE")
+        if(urls.length===1){
+          console.log("no urls should come")
+          setUrls([])
+        }
+      })
       dataOutput?.addEventListener('lr-data-output', (e) => {
+        console.log("fileDataEvent",e);
         const newUrls = e.detail?.data?.files.map(e=>e.cdnUrl)
         console.log("fileDataEvent",newUrls);
         setUrls(newUrls)
@@ -115,25 +135,25 @@ export function Uploader({setUrls}){
         >
         </lr-file-uploader-regular>
         <lr-data-output
+          ref={outputRef}
           ctx-name="my-uploader"
-          use-console
+          use-console=""
           use-input
           use-group
           use-event
-          onEvent={(e)=>{handleEvent(e)}}
         ></lr-data-output>
       </div>
     )
 }
 
-export default function Trial() {
+export default function Trial({urls,setImages}) {
   const [startTrial, setStartTrial] = useState(false);
 
   return (
     <>
         <div className="h-full flex justify-center items-center m-20">
           {startTrial ? (
-            <UserForm startTrial={startTrial} setStartTrial={setStartTrial} />
+            <UserForm urls={urls} setImages={setImages} startTrial={startTrial} setStartTrial={setStartTrial} />
           ) : (
             <button
               className="m-20 py-7 px-10 text-white rounded-md bg-slate-500 hover:pointer"

@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseURL = "http://localhost:8000/api/"
+const baseURL = process.env.NEXT_PUBLIC_BASE_URL+"/api/"
 
 const api = axios.create({
     baseURL,
@@ -10,13 +10,14 @@ const api = axios.create({
 })
 
 async function uploadTrialData(data){
-    const res = await api.post("image_upload",data)
+    const res = await api.post("users",data)
     return res.data
 }
-async function getImages(number){
-    const res = await api.get("all_users_images/"+number)
+async function getImages(data){
+    const res = await api.get("images/"+data.page)
     return res.data
 }
+
 
 export {
     uploadTrialData,

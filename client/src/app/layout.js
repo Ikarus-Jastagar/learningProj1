@@ -15,7 +15,9 @@ export default function RootLayout({ children }) {
         <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
       </head>
       <body className={inter.className}>
-        {children}
+        
+          {children}
+          
       </body>
     </html>
   )

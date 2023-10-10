@@ -2,7 +2,6 @@
 import landingImage from "@/app/assets/HeroVector.svg";
 import Image from "next/image";
 import BlogsComp from "./components/Blogs";
-import Trial from "./components/Trial";
 import Gallery from "./components/Gallery";
 import Script from "next/script";
 import NavBar from "./components/NavBar/NavComp";
@@ -76,6 +75,9 @@ function AboutUs(){
 }
 
 function MainBody() {
+
+
+
   return (
     <>
       <main className="relative flex flex-col items-center justify-between font-mono overflow-hidden">
@@ -83,14 +85,7 @@ function MainBody() {
         <div className="w-full top-[93dvh]">
           <AboutUs />
           <BlogsComp />
-          <section id="try" className="flex flex-col-reverse md:flex-row items-center galleryBG" >
-              <div className="md:flex-[0.4]">
-                <Trial />
-              </div>
-              <div className="md:flex-[0.6]">
-                <Gallery />
-              </div>
-          </section>
+          <Gallery />
         </div>
       </main>
     </>

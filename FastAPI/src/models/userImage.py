@@ -3,7 +3,6 @@ from bson import ObjectId
 
 class ImageUserAndMeta(BaseModel):
     email:str
-    images: list[ObjectId]
+    images: list[str]
     name:str
-    password:str
     phoneNumber:int
