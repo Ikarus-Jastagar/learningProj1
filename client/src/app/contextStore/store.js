@@ -1,10 +1,11 @@
-"use client"
 import { configureStore } from "@reduxjs/toolkit";
 import imagesPageation from "./imagesPageation";
+import trialFormSlice from "./trialFormSlice";
 
 const store = configureStore({
     reducer:{
-        imagePages:imagesPageation
+        imagePages:imagesPageation,
+        trialForm:trialFormSlice
     }
 })
 

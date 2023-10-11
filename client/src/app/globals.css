@@ -58,6 +58,23 @@ body{
   animation-duration: 2s;
   animation-iteration-count: infinite;
 }
+
+.draggable-indicator {
+
+	width: 16px;
+	height: 16px;
+
+	position: absolute;
+	right: 0.5em;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+}
+
+.draggable-indicator rect {
+	fill: #ccc;
+}
+
 @keyframes skeletonAnimation {
   0%{
     background-position: 0% 50%;

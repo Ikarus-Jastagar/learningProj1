@@ -10,11 +10,15 @@ const api = axios.create({
 })
 
 async function uploadTrialData(data){
-    const res = await api.post("users",data)
-    return res.data
+    try{
+        const res = await api.post("users",data)
+        return res.data
+    }catch(err){
+        throw err
+    }
 }
 async function getImages(data){
-    const res = await api.get("images/"+data.page)
+    const res = await api.get("images/"+data)
     return res.data
 }
 

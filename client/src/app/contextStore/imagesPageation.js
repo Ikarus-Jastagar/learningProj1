@@ -1,4 +1,3 @@
-"use client"
 import { createSlice } from "@reduxjs/toolkit";
 
 const imagesPagingSlice = createSlice({
@@ -6,18 +5,12 @@ const imagesPagingSlice = createSlice({
     initialState:{
         page:1
     },
-    actions:{
+    reducers:{
         nextPage:(state)=>{
-            const newState = {
-                page:state.page+6,
-            }
-            return newState
+            state.page+=1
         },
         prevPage:(state)=>{
-            const newState = {
-                page:state.page-6,
-            }
-            return newState
+            state.page-=1
         }
     }
 })

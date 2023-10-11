@@ -3,7 +3,7 @@ from fastapi import HTTPException,APIRouter
 from models.UserImage import ImageUserAndMeta
 from database.database import find_users_by_or,add_user
 
-user_router = APIRouter()
+user_router = APIRouter(prefix='/api/users',tags=["Users"])
 
 @user_router.post("/",status_code=201)
 async def saveIncommingImage(data: ImageUserAndMeta):

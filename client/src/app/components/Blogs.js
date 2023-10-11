@@ -30,6 +30,7 @@ async function getData() {
 
 function EachBlogComp({title,html,feature_image,custom_excerpt}){
   const [showModal, setShowModal] = useState(false);
+  const image_size = 200
   return (
     <>
         <div 
@@ -37,13 +38,35 @@ function EachBlogComp({title,html,feature_image,custom_excerpt}){
           data-aos="flip-up" data-aos-once='true'
           onClick={() => setShowModal(true)} >
             {/* <Image alt="featured_image" className="rounded-md" width={400} height={400} src={feature_image}/> */}
-            <Image alt="featured_image" className="rounded-md" width={400} height={400} src={feature_image}/>
-            <div className=" p-4 m-3">
-              <h4 className="text-2xl font-bold">{title}</h4>
-              <p className="hidden md:block">
-                {custom_excerpt}
-              </p>
-            </div>  
+            <div className="flex-[0.93] flex-col md:flex-row flex">
+              <Image alt="featured_image" priority className="rounded-md w-[20rem] h-[20rem] md:w-[30rem] md:h-[100%] " width={image_size} height={image_size} src={feature_image}/>
+              <div className=" p-4 m-3">
+                <h4 className="text-2xl font-bold">{title}</h4>
+                <p className="hidden md:block">
+                  {custom_excerpt}
+                </p>
+              </div>
+            </div>
+            <div className="hidden md:flex w-[100px] hover:cursor-move flex-[0.05] h-full items-center">
+              <svg viewBox="0 0 32 32">
+                <rect height="4" width="4" y="4" x="0"/>
+                <rect height="4" width="4" y="12" x="0"/>
+                <rect height="4" width="4" y="20" x="0"/>
+                <rect height="4" width="4" y="28" x="0"/>
+                <rect height="4" width="4" y="4" x="8"/>
+                <rect height="4" width="4" y="12" x="8"/>
+                <rect height="4" width="4" y="20" x="8"/>
+                <rect height="4" width="4" y="28" x="8"/>
+                <rect height="4" width="4" y="4" x="16"/>
+                <rect height="4" width="4" y="12" x="16"/>
+                <rect height="4" width="4" y="20" x="16"/>
+                <rect height="4" width="4" y="28" x="16"/>
+                <rect height="4" width="4" y="4" x="24"/>
+                <rect height="4" width="4" y="12" x="24"/>
+                <rect height="4" width="4" y="20" x="24"/>
+                <rect height="4" width="4" y="28" x="24"/>
+              </svg>
+            </div>
         </div>
       {showModal ? (
         <>
