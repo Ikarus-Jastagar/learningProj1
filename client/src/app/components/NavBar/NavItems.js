@@ -1,26 +1,26 @@
 import React from "react";
 import Link from "next/link";
 
-export default function NavLists({classes}){
+export default function NavLists({classes,innerClass}){
     return(
         <>
             <li className={classes}>
-                <Link className={"p-4 m-4 rounded-md hover:bg-slate-800 hover:text-white"} href={"#"}>
+                <Link className={innerClass} href={"#"}>
                 Home
                 </Link>
             </li>
             <li className={classes}>
-                <Link className={"p-4 m-4 rounded-md hover:bg-slate-800 hover:text-white"} href={"#aboutus"}>
+                <Link className={innerClass} href={"#aboutus"}>
                 AboutUs
                 </Link>
             </li>
             <li className={classes}>
-                <Link className={"p-4 m-4 rounded-md hover:bg-slate-800 hover:text-white"} href={"#blogs"}>
+                <Link className={innerClass} href={"#blogs"}>
                 OurBlogs
                 </Link>
             </li>
             <li className={classes}>
-                <Link className={"p-4 m-4 rounded-md hover:bg-slate-800 hover:text-white"} href={"#gallery"}>
+                <Link className={innerClass} href={"#gallery"}>
                 Gallery
                 </Link>
             </li>

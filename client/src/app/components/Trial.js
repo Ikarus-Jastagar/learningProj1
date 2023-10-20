@@ -14,9 +14,9 @@ import {
   changePhoneNumber,
   clearForm,
 } from "../contextStore/trialFormSlice";
-LR.registerBlocks(LR);
 
-console.log(LR.Data)
+
+LR.registerBlocks(LR);
 
 function InputField({ id, val, setter, placeholder }) {
   return (
@@ -156,13 +156,29 @@ export function Uploader() {
         ctx-name="my-uploader"
         class="my-config"
       ></lr-file-uploader-regular>
+      {/* <div class="lr-wgt-common">
+        <lr-simple-btn></lr-simple-btn>
+
+        <lr-modal>
+          <lr-start-from>
+            <lr-drop-area with-icon="" clickable=""></lr-drop-area>
+            <lr-source-list wrap=""></lr-source-list>
+          </lr-start-from>
+          <lr-upload-list></lr-upload-list>
+          <lr-camera-source></lr-camera-source>
+          <lr-url-source></lr-url-source>
+          <lr-external-source></lr-external-source>
+          <lr-cloud-image-editor-activity></lr-cloud-image-editor-activity>
+        </lr-modal>
+        <lr-progress-bar></lr-progress-bar>
+      </div> */}
       <lr-data-output
-        ref={outputRef}
+        // ref={outputRef}
         ctx-name="my-uploader"
-        use-console=""
-        use-input
-        use-group
-        use-event
+        // use-console=""
+        // use-input
+        // use-group
+        // use-event
       ></lr-data-output>
     </div>
   );

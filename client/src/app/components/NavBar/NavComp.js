@@ -14,7 +14,7 @@ export default function NavBar() {
         </div>
         <nav className=" flex-[0.7]">
           <ui className="flex list-none items-center justify-around">
-            <NavLists classes={"text-center"} />
+            <NavLists classes={"text-center"} innerClass={"p-4 m-4 rounded-md hover:bg-slate-800 hover:text-white"} />
           </ui>
         </nav>
       </header>
@@ -25,7 +25,7 @@ export default function NavBar() {
         </div>
         <nav style={{maxHeight:(!dropDown? "0px":"60dvh")}} className="overflow-hidden transition-all">
           <ui className="flex flex-col list-none items-start">
-            <NavLists classes={"text-center m-5"} />
+            <NavLists classes={"text-center m-5"} innerClass={"p-4 m-4 rounded-md hover:bg-slate-800 hover:text-white"} />
           </ui>
         </nav>
       </header>

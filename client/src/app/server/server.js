@@ -22,8 +22,20 @@ async function getImages(data){
     return res.data
 }
 
+async function getBlogsData() {
+    try {
+      const res = await axios.get(process.env.NEXT_PUBLIC_BLOGS_API);
+      if (!res) {
+        throw new Error("Failed to fetch data");
+      }
+      return res.data;
+    } catch (error) {
+      console.log("Unable to fetch Blog :(\n due to", error.message);
+    }
+  }
 
 export {
     uploadTrialData,
-    getImages
+    getImages,
+    getBlogsData
 }

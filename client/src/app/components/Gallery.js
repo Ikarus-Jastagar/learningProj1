@@ -44,22 +44,24 @@ function GalleryWithProvider(){
 
 
     function showNext(){
-      action(nextPage())
-      setFirstPage(false)
+      setloading(true)
       getImages(state.page+1).then((e)=>{
+        setFirstPage(false)
         setImages(e.images)
         setMaxReached(e.maxReached)
         setloading(false)})
-    }
-    function showPrev(){
-      action(prevPage())
-      if(state.page==2){
-        setFirstPage(true)
+        action(nextPage())
       }
+    function showPrev(){
+      setloading(true)
       getImages(state.page-1).then((e)=>{
+        if(state.page==2){
+          setFirstPage(true)
+        }
         setImages(e.images)
         setMaxReached(e.maxReached)
         setloading(false)})
+        action(prevPage())
     }
 
     useEffect(()=>{
@@ -76,7 +78,7 @@ function GalleryWithProvider(){
                 <Trial/>
                 <div className="flex-[0.5] flex flex-col justify-center items-center m-5">
                   <div id="gallery" style={{aspectRatio:"3/2"}} className='flex max-h-[80dvh] w-[99%] flex-wrap shadow-lg m-2'>
-                    {images && images.map((e,i) =>(
+                    {(!loading && images) && images.map((e,i) =>(
                       <EachDisplayImage key={Date.now()+i} delay={i*300/2} src={e} />
                     ))}
                   </div>
