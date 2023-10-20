@@ -1,10 +1,9 @@
 from fastapi import HTTPException, APIRouter
 from pydantic import BaseModel
-from config.loadYaml import page_size
 from controllers.image_controllers import get_paged_images_for_n_page
 from typing import List
 
-image_router = APIRouter(prefix='/api/images',tags=["Images"])
+image_router = APIRouter(prefix='/api/v1/images',tags=["Images"])
 
 class PagedImagesResponseModel(BaseModel):
     images: List[str]

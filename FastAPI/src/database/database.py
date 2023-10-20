@@ -1,7 +1,7 @@
 from pymongo import MongoClient
-from config.loadYaml import mongo_url
+import config.loadYaml as application
 
-myclient = MongoClient(mongo_url)
+myclient = MongoClient(application.mongo_url)
 database = myclient['test']
 UserImageMetaDB = database["UserImageMeta"]
 

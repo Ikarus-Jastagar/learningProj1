@@ -1,7 +1,7 @@
 import database.database as db
 from fastapi import HTTPException
 from typing import List
-import config.loadYaml as config_files
+import config.loadYaml as application
 from models.UserImage import ImageUserAndMeta
 
 
@@ -41,7 +41,7 @@ def get_all_images_of_all_users() -> List[str]:
 def get_images_in_range(start:int, size:int) -> List[str]:
     try:
         all_images = get_all_images_of_all_users()
-        if len(all_images)<=start+config_files.page_size:
+        if len(all_images)<=start+application.page_size:
             raise IndexError
         return all_images[start:start+size]
     except Exception as e:
@@ -57,6 +57,6 @@ def get_first_n_images(start:int) -> List[str]:
 
 def get_paged_images(page_number:int):
     try:
-        return [get_images_in_range((page_number-1)*config_files.page_size,config_files.page_size),False]
+        return [get_images_in_range((page_number-1)*application.page_size,application.page_size),False]
     except IndexError as index_error:
-        return [get_last_n_images(config_files.page_size),True]
+        return [get_last_n_images(application.page_size),True]

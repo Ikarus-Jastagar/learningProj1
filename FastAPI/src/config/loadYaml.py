@@ -15,3 +15,4 @@ jwt_secrets = config['jwt']["jwt_secret"]
 
 # application
 page_size = application['size']['page_size']
+allowed_origins = application['origins']['allowed_origins']
