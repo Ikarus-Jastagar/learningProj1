@@ -3,15 +3,16 @@ version: '3'
 services:
   app:
     build: ./client
-    container_name: staticServe
+    container_name: nextApp
+    command: npm run dev -- -p 8080
     ports:
-      - "3000:80"
+      - "8080:8080"
     restart: unless-stopped
 
   fastapiserver:
     build: ./FastAPI/src
     container_name: fastAPIServer
     ports:
-      - "8000:8000"
-    command: uvicorn main:app --host 0.0.0.0
+      - "8011:8011"
+    command: uvicorn main:app --host 0.0.0.0 --port 8011
     restart: unless-stopped
