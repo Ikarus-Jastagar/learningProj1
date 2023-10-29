@@ -45,6 +45,7 @@ function UserForm({ startTrial, setStartTrial }) {
 
   async function handleFormSubmit(e) {
     e.preventDefault();
+    console.log("FORMSTATE",formState)
     if (formState.images.length != 2) {
       toast.warn("Need to post exactly 2 images");
       return;
@@ -125,7 +126,7 @@ export function Uploader() {
   const outputRef = useRef(null);
   const formState = useSelector((state) => state.trialForm);
   const action = useDispatch();
-
+  console.log(formState)
   function setUrls(newUrls) {
     action(changeImages(newUrls));
   }
@@ -156,29 +157,13 @@ export function Uploader() {
         ctx-name="my-uploader"
         class="my-config"
       ></lr-file-uploader-regular>
-      {/* <div class="lr-wgt-common">
-        <lr-simple-btn></lr-simple-btn>
-
-        <lr-modal>
-          <lr-start-from>
-            <lr-drop-area with-icon="" clickable=""></lr-drop-area>
-            <lr-source-list wrap=""></lr-source-list>
-          </lr-start-from>
-          <lr-upload-list></lr-upload-list>
-          <lr-camera-source></lr-camera-source>
-          <lr-url-source></lr-url-source>
-          <lr-external-source></lr-external-source>
-          <lr-cloud-image-editor-activity></lr-cloud-image-editor-activity>
-        </lr-modal>
-        <lr-progress-bar></lr-progress-bar>
-      </div> */}
       <lr-data-output
         // ref={outputRef}
         ctx-name="my-uploader"
-        // use-console=""
-        // use-input
-        // use-group
-        // use-event
+        use-console
+        use-input
+        use-group
+        use-event
       ></lr-data-output>
     </div>
   );

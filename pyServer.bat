@@ -1,1 +1,1 @@
-cd FastAPI && .\venv\Scripts\activate && cd src && uvicorn main:app --reload --port 8009
+cd FastAPI && .\venv\Scripts\activate && cd src && uvicorn main:app --reload --port 8011
